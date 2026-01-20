@@ -2,6 +2,8 @@
 
 This directory contains documentation for the decompiled Hytale Server API.
 
+> **Important:** Before diving into the API, read [Common Pitfalls](./common-pitfalls.md) to avoid frequent mistakes with chunk lookups, commands, and block state management.
+
 ## Source Location
 
 The decompiled source is located at:
@@ -44,7 +46,11 @@ Common events:
 | `CommandBase` | Base class for commands |
 | `CommandContext` | Execution context |
 | `CommandRegistry` | Command registration |
-| `ArgumentType` | Argument type definitions |
+| `ArgTypes` | Argument type definitions (`INTEGER`, `STRING`, `DOUBLE`, etc.) |
+| `RequiredArg<T>` | Required argument wrapper |
+| `OptionalArg<T>` | Optional argument wrapper |
+
+> **Note:** The command argument system uses `withRequiredArg()`/`withOptionalArg()` and `ctx.get()`. See [Common Pitfalls](./common-pitfalls.md#command-system) for correct usage.
 
 ### Registries
 `com.hypixel.hytale.server.core.registry`
@@ -147,3 +153,9 @@ getTaskRegistry().runRepeating(() -> {
 - The server JAR is **not obfuscated** as of Early Access
 - API may change frequently during Early Access
 - Official source code release planned 1-2 months post-launch
+- `BlockState` is deprecated but still functional (as of Jan 2026)
+
+## Additional Resources
+
+- [Common Pitfalls](./common-pitfalls.md) - Avoid frequent API mistakes
+- [First Plugin Guide](../guides/first-plugin.md) - Step-by-step tutorial

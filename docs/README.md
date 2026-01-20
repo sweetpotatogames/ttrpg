@@ -14,6 +14,7 @@ Local documentation for Hytale plugin and mod development.
 | Resource | Location |
 |----------|----------|
 | [API Overview](./api/README.md) | Introduction to the decompiled API |
+| [Common Pitfalls](./api/common-pitfalls.md) | Avoid frequent API mistakes |
 | Decompiled Source | `../tools/decompiled-server/` |
 
 ## Asset Documentation

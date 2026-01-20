@@ -109,31 +109,49 @@ public class HelloCommand extends CommandBase {
 
 ### Command with Arguments
 
+Use `withRequiredArg()` or `withOptionalArg()` to define arguments, and `ctx.get()` to retrieve values:
+
 ```java
+import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
+import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
+
 public class TeleportCommand extends CommandBase {
+
+    private final RequiredArg<Double> xArg;
+    private final RequiredArg<Double> yArg;
+    private final RequiredArg<Double> zArg;
 
     public TeleportCommand() {
         super("tp", "Teleport to coordinates");
         setPermissionGroup(GameMode.Creative); // Only Creative mode
 
-        // Define arguments
-        addArgument("x", ArgumentType.DOUBLE);
-        addArgument("y", ArgumentType.DOUBLE);
-        addArgument("z", ArgumentType.DOUBLE);
+        // Define typed arguments
+        xArg = withRequiredArg("x", "X coordinate", ArgTypes.DOUBLE);
+        yArg = withRequiredArg("y", "Y coordinate", ArgTypes.DOUBLE);
+        zArg = withRequiredArg("z", "Z coordinate", ArgTypes.DOUBLE);
     }
 
     @Override
     protected void executeSync(@Nonnull CommandContext ctx) {
-        double x = ctx.getArgument("x", Double.class);
-        double y = ctx.getArgument("y", Double.class);
-        double z = ctx.getArgument("z", Double.class);
+        // Must be a player to teleport
+        if (!ctx.isPlayer()) {
+            ctx.sendMessage(Message.raw("This command must be run by a player"));
+            return;
+        }
 
-        // Teleport player
-        ctx.getSource().getPlayer().teleport(x, y, z);
+        double x = ctx.get(xArg);
+        double y = ctx.get(yArg);
+        double z = ctx.get(zArg);
+
+        // Get player and teleport
+        Player player = ctx.senderAs(Player.class);
+        player.teleport(x, y, z);
         ctx.sendMessage(Message.raw("Teleported to " + x + ", " + y + ", " + z));
     }
 }
 ```
+
+> **Note:** See [Common API Pitfalls](../api/common-pitfalls.md) for more details on the command system.
 
 ## Registering Event Listeners
 
