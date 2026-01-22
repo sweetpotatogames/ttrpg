@@ -1,7 +1,7 @@
 // Combat HUD - Persistent turn order overlay
 // Displays in top-right corner during active combat
 
-$C = "../../../../../Common.ui";
+$C = "../../../Common.ui";
 
 Group #CombatHudRoot {
     Anchor: (Right: 10, Top: 100, Width: 200);
