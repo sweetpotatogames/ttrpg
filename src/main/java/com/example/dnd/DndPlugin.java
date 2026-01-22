@@ -5,6 +5,8 @@ import com.example.dnd.character.CharacterSheet;
 import com.example.dnd.combat.CombatEventHandler;
 import com.example.dnd.combat.TurnManager;
 import com.example.dnd.commands.DndCommands;
+import com.example.dnd.gm.GMManager;
+import com.example.dnd.gm.commands.GMCommands;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.event.events.player.PlayerMouseButtonEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerMouseMotionEvent;
@@ -30,6 +32,7 @@ public class DndPlugin extends JavaPlugin {
 
     // Managers
     private TurnManager turnManager;
+    private GMManager gmManager;
     private CombatEventHandler combatEventHandler;
     private CameraInputHandler cameraInputHandler;
 
@@ -53,17 +56,21 @@ public class DndPlugin extends JavaPlugin {
 
         // Initialize managers
         turnManager = TurnManager.get();
+        gmManager = GMManager.get();
+        gmManager.initialize(turnManager);
         combatEventHandler = new CombatEventHandler(turnManager);
         cameraInputHandler = CameraInputHandler.get();
 
         // Register commands
         getCommandRegistry().registerCommand(new DndCommands(this, turnManager));
+        getCommandRegistry().registerCommand(new GMCommands(this, turnManager));
 
         // Register event listeners for camera input (handles pan/rotate/tilt via mouse drag)
         getEventRegistry().register(PlayerMouseButtonEvent.class, this::onMouseButton);
         getEventRegistry().register(PlayerMouseMotionEvent.class, cameraInputHandler::onMouseMotion);
 
         LOGGER.atInfo().log("[D&D] Commands registered: /dnd camera, /dnd initiative, /dnd turn, /dnd roll, /dnd sheet, /dnd combat, /dnd move, /dnd target");
+        LOGGER.atInfo().log("[GM] Commands registered: /gm toggle, /gm spawn, /gm select, /gm damage, /gm heal, /gm initiative, /gm possess, /gm unpossess, /gm panel");
     }
 
     /**
@@ -88,6 +95,8 @@ public class DndPlugin extends JavaPlugin {
         LOGGER.atInfo().log("[D&D] Use '/dnd camera topdown' to enable top-down view");
         LOGGER.atInfo().log("[D&D] Use '/dnd sheet' to open your character sheet");
         LOGGER.atInfo().log("[D&D] Use '/dnd combat' to open the combat control panel");
+        LOGGER.atInfo().log("[GM] Use '/gm toggle' to enable GM mode");
+        LOGGER.atInfo().log("[GM] Use '/gm panel' to open the GM control panel");
     }
 
     @Override
@@ -115,5 +124,12 @@ public class DndPlugin extends JavaPlugin {
      */
     public TurnManager getTurnManager() {
         return turnManager;
+    }
+
+    /**
+     * Get the GM manager.
+     */
+    public GMManager getGmManager() {
+        return gmManager;
     }
 }
