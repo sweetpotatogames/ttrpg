@@ -1,0 +1,567 @@
+// TTRPG Plugin - Shared UI Component Library
+// Dark Fantasy Theme for D&D 5e-inspired gameplay
+$C = "../Common.ui";
+
+// ============================================================================
+// COLOR PALETTE
+// ============================================================================
+// Primary Background:   #1a1a2e (Dark purple-blue)
+// Secondary Background: #2a2a4e (Medium purple)
+// Section Headers:      #ccb588 (Gold/tan)
+// Primary Text:         #cccccc (Light gray)
+// Secondary Text:       #888888 (Medium gray)
+// Help Text:            #666666 (Dark gray)
+// Ability Label:        #96a9be (Blue-gray)
+// Success/Positive:     #4caf50 (Green)
+// Error/Negative:       #f44336 (Red)
+// Warning:              #ffeb3b (Yellow)
+
+// ============================================================================
+// PAGE STRUCTURE COMPONENTS
+// ============================================================================
+
+// Full page modal with themed container - wraps $C.@PageOverlay
+@DndPage {
+  $C.@PageOverlay {
+    $C.@Container {
+      ...;
+    }
+  }
+}
+
+// Dark semi-transparent panel for sections
+@DndPanel {
+  @Opacity = 0.85;
+  Group {
+    LayoutMode: Top;
+    Background: #1a1a2e(@Opacity);
+    ...;
+  }
+}
+
+// Lighter content area panel
+@DndContentPanel {
+  @Opacity = 0.8;
+  Group {
+    LayoutMode: Top;
+    Background: #2a2a4e(@Opacity);
+    ...;
+  }
+}
+
+// ============================================================================
+// TYPOGRAPHY COMPONENTS
+// ============================================================================
+
+// Large page title (18px bold, gold)
+@PageTitle {
+  @Text = "Title";
+  Label {
+    Anchor: (Height: 25);
+    Text: @Text;
+    Style: (FontSize: 18, RenderBold: true, TextColor: #ccb588);
+  }
+}
+
+// Section divider/header (12px bold, gold)
+@SectionHeader {
+  @Text = "SECTION";
+  Label {
+    Anchor: (Bottom: 10);
+    Text: @Text;
+    Style: (FontSize: 12, RenderBold: true, TextColor: #ccb588);
+  }
+}
+
+// Section header with custom bottom margin
+@SectionHeaderCompact {
+  @Text = "SECTION";
+  Label {
+    Anchor: (Height: 20, Bottom: 8);
+    Text: @Text;
+    Style: (FontSize: 12, RenderBold: true, TextColor: #ccb588);
+  }
+}
+
+// Standard body text (11px, light gray)
+@BodyText {
+  @Text = "";
+  Label {
+    Text: @Text;
+    Style: (FontSize: 11, TextColor: #cccccc);
+  }
+}
+
+// Muted/secondary text (10px, medium gray)
+@SecondaryText {
+  @Text = "";
+  Label {
+    Text: @Text;
+    Style: (FontSize: 10, TextColor: #888888);
+  }
+}
+
+// Small hint text (9px, dark gray)
+@HelpText {
+  @Text = "";
+  Label {
+    Anchor: (Height: 14);
+    Text: @Text;
+    Style: (FontSize: 9, TextColor: #666666);
+  }
+}
+
+// Tiny hint text for HUD (8px, dark gray)
+@HelpTextSmall {
+  @Text = "";
+  Label {
+    Anchor: (Height: 12);
+    Text: @Text;
+    Style: (FontSize: 8, TextColor: #666666);
+  }
+}
+
+// ============================================================================
+// STAT DISPLAY COMPONENTS
+// ============================================================================
+
+// Big number display for HP (36px bold)
+@LargeStat {
+  @Value = "0";
+  @Color = #4caf50;
+  Label {
+    Anchor: (Width: 60);
+    Text: @Value;
+    Style: (FontSize: 36, RenderBold: true, TextColor: @Color);
+  }
+}
+
+// Medium number for max HP/AC (28px)
+@MediumStat {
+  @Value = "0";
+  @Color = #888888;
+  @Bold = false;
+  Label {
+    Anchor: (Width: 50);
+    Text: @Value;
+    Style: (FontSize: 28, RenderBold: @Bold, TextColor: @Color);
+  }
+}
+
+// Small number for ability scores (18px bold)
+@SmallStat {
+  @Value = "10";
+  Label {
+    Anchor: (Width: 30);
+    Text: @Value;
+    Style: (FontSize: 18, RenderBold: true);
+  }
+}
+
+// Modifier value (+X format, green)
+@Modifier {
+  @Value = "+0";
+  Label {
+    Anchor: (Width: 30);
+    Text: @Value;
+    Style: (FontSize: 12, TextColor: #4caf50);
+  }
+}
+
+// Ability label (STR, DEX, etc.)
+@AbilityLabel {
+  @Text = "STR";
+  Label {
+    Anchor: (Width: 35);
+    Text: @Text;
+    Style: (FontSize: 11, TextColor: #96a9be);
+  }
+}
+
+// ============================================================================
+// BUTTON COMPONENTS (Wrappers around Common.ui buttons)
+// ============================================================================
+
+// Primary action button (full width)
+@DndButton {
+  @Text = "Button";
+  @Width = 220;
+  @Height = 40;
+  $C.@TextButton {
+    @Text = @Text;
+    Anchor: (Width: @Width, Height: @Height);
+    ...;
+  }
+}
+
+// Secondary action button (standard)
+@DndSecondaryButton {
+  @Text = "Button";
+  @Width = 150;
+  @Height = 35;
+  $C.@SecondaryTextButton {
+    @Text = @Text;
+    Anchor: (Width: @Width, Height: @Height);
+    ...;
+  }
+}
+
+// Compact button (for ability rolls, HP controls)
+@DndSmallButton {
+  @Text = "";
+  @Width = 45;
+  $C.@SmallSecondaryTextButton {
+    @Text = @Text;
+    Anchor: (Width: @Width);
+    ...;
+  }
+}
+
+// ============================================================================
+// SPECIALIZED COMPONENTS
+// ============================================================================
+
+// Ability score row with label, score, modifier, roll, and save buttons
+// Parameters: @Abbr (STR), @Score (10), @Mod (+0), IDs for score/mod labels and buttons
+@AbilityScoreRow {
+  @Abbr = "STR";
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 35, Bottom: 5);
+    Label {
+      Anchor: (Width: 35);
+      Text: @Abbr;
+      Style: (FontSize: 11, TextColor: #96a9be);
+    }
+    ...;
+  }
+}
+
+// Initiative order entry (for lists)
+@InitiativeSlot {
+  @Index = 0;
+  @Height = 18;
+  Label {
+    Visible: false;
+    Anchor: (Height: @Height);
+    Text: "1. Player (20)";
+    Style: (FontSize: 11, TextColor: #cccccc);
+  }
+}
+
+// Initiative slot for HUD (smaller font)
+@InitiativeSlotCompact {
+  @Index = 0;
+  Label {
+    Visible: false;
+    Anchor: (Height: 16);
+    Text: "1. Player (20)";
+    Style: (FontSize: 10, TextColor: #cccccc);
+  }
+}
+
+// HP adjustment button group (-5, -1, +1, +5)
+@HpControls {
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 35, Bottom: 15);
+    $C.@SmallSecondaryTextButton #hpMinus5 {
+      @Text = "-5";
+      Anchor: (Width: 40);
+    }
+    $C.@SmallSecondaryTextButton #hpMinus {
+      @Text = "-1";
+      Anchor: (Width: 40, Left: 3);
+    }
+    $C.@SmallSecondaryTextButton #hpPlus {
+      @Text = "+1";
+      Anchor: (Width: 40, Left: 3);
+    }
+    $C.@SmallSecondaryTextButton #hpPlus5 {
+      @Text = "+5";
+      Anchor: (Width: 40, Left: 3);
+    }
+  }
+}
+
+// Current turn indicator panel
+@TurnIndicator {
+  Group {
+    LayoutMode: Top;
+    Background: #2a2a4e(0.8);
+    Anchor: (Height: 70, Bottom: 15);
+    Label #currentTurnLabel {
+      Anchor: (Height: 22);
+      Text: "No combat in progress";
+      Style: (FontSize: 14, RenderBold: true, TextColor: #ffffff);
+    }
+    Label #turnPromptLabel {
+      Anchor: (Height: 20);
+      Text: "Start combat to begin";
+      Style: (FontSize: 12, TextColor: #888888);
+    }
+  }
+}
+
+// NPC slot for GM control panel
+@NpcSlot {
+  @Index = 0;
+  Group {
+    LayoutMode: Left;
+    Visible: false;
+    Background: #1a1a2e(0.5);
+    Anchor: (Height: 35, Bottom: 4);
+    Label {
+      Anchor: (Width: 100);
+      Text: "NPC Name";
+      Style: (FontSize: 11, TextColor: #cccccc);
+    }
+    Label {
+      Anchor: (Width: 50, Left: 5);
+      Text: "10/10";
+      Style: (FontSize: 10, TextColor: #4caf50);
+    }
+    Label {
+      Anchor: (Width: 35, Left: 5);
+      Text: "AC:10";
+      Style: (FontSize: 9, TextColor: #888888);
+    }
+    $C.@SmallSecondaryTextButton {
+      @Text = "Sel";
+      Anchor: (Width: 35, Height: 25, Left: 5);
+    }
+    $C.@SmallSecondaryTextButton {
+      @Text = "-";
+      Anchor: (Width: 25, Height: 25, Left: 3);
+    }
+    $C.@SmallSecondaryTextButton {
+      @Text = "+";
+      Anchor: (Width: 25, Height: 25, Left: 3);
+    }
+  }
+}
+
+// Tips/help section header
+@TipsHeader {
+  Label {
+    Anchor: (Bottom: 5);
+    Text: "Tips:";
+    Style: (FontSize: 10, RenderBold: true, TextColor: #888888);
+  }
+}
+
+// HP display with current/max
+@HpDisplay {
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 50, Bottom: 10);
+    Label #CurrentHp {
+      Anchor: (Width: 60);
+      Text: "10";
+      Style: (FontSize: 36, RenderBold: true, TextColor: #4caf50);
+    }
+    Label {
+      Anchor: (Width: 20);
+      Text: "/";
+      Style: (FontSize: 28, TextColor: #666666);
+    }
+    Label #MaxHp {
+      Anchor: (Width: 50);
+      Text: "10";
+      Style: (FontSize: 28, TextColor: #888888);
+    }
+  }
+}
+
+// Armor class display
+@ArmorClassDisplay {
+  @Value = "10";
+  Label {
+    Anchor: (Bottom: 15);
+    Text: @Value;
+    Style: (FontSize: 28, RenderBold: true);
+  }
+}
+
+// Combat status text (muted)
+@CombatStatus {
+  @Text = "No Combat";
+  Label {
+    Anchor: (Height: 16);
+    Text: @Text;
+    Style: (FontSize: 11, TextColor: #888888);
+  }
+}
+
+// Dice button for dice roller
+@DiceButton {
+  @Die = "D20";
+  $C.@SecondaryTextButton {
+    @Text = @Die;
+    Anchor: (Width: 55, Height: 40, Right: 5, Bottom: 5);
+    ...;
+  }
+}
+
+// ============================================================================
+// HUD SPECIFIC COMPONENTS
+// ============================================================================
+
+// HUD header panel with title
+@HudHeader {
+  @Text = "Combat Active";
+  Group {
+    Background: #1a1a2e(0.85);
+    Anchor: (Height: 30);
+    Label {
+      Anchor: (Width: 190);
+      Text: @Text;
+      Style: (FontSize: 11, RenderBold: true, TextColor: #ccb588, HorizontalAlignment: Center);
+    }
+  }
+}
+
+// HUD current turn panel
+@HudTurnPanel {
+  Group {
+    LayoutMode: Top;
+    Background: #2a2a4e(0.9);
+    Anchor: (Height: 50, Top: 2);
+    Label {
+      Anchor: (Height: 12);
+      Text: "Current Turn";
+      Style: (FontSize: 9, TextColor: #888888);
+    }
+    Label #currentTurnName {
+      Anchor: (Height: 20);
+      Text: "PlayerName";
+      Style: (FontSize: 14, RenderBold: true, TextColor: #ffffff);
+    }
+  }
+}
+
+// HUD turn prompt
+@HudPrompt {
+  @Text = "Your turn!";
+  @Color = #4caf50;
+  Group {
+    Background: #1a1a2e(0.85);
+    Anchor: (Height: 25, Top: 2);
+    Label {
+      Anchor: (Width: 190);
+      Text: @Text;
+      Style: (FontSize: 11, TextColor: @Color, HorizontalAlignment: Center);
+    }
+  }
+}
+
+// Movement phase panel
+@MovementPanel {
+  Group {
+    LayoutMode: Top;
+    Visible: false;
+    Background: #2e1a2e(0.9);
+    Anchor: (Top: 5);
+    Label {
+      Anchor: (Height: 14);
+      Text: "Movement Phase";
+      Style: (FontSize: 9, TextColor: #aa88cc);
+    }
+    Label #movementLabel {
+      Anchor: (Height: 18);
+      Text: "Movement: 6/6 blocks";
+      Style: (FontSize: 11, RenderBold: true, TextColor: #4caf50);
+    }
+    Label #movementHint {
+      Anchor: (Height: 12);
+      Text: "Click to select destination";
+      Style: (FontSize: 8, TextColor: #888888);
+    }
+  }
+}
+
+// Target information panel
+@TargetPanel {
+  Group {
+    LayoutMode: Top;
+    Visible: false;
+    Background: #2e1a1a(0.9);
+    Anchor: (Top: 5);
+    Label {
+      Anchor: (Height: 14);
+      Text: "Target";
+      Style: (FontSize: 9, TextColor: #cc8877);
+    }
+    Label #targetName {
+      Anchor: (Height: 18);
+      Text: "Goblin Warrior";
+      Style: (FontSize: 12, RenderBold: true, TextColor: #ffffff);
+    }
+    ...;
+  }
+}
+
+// HP bar for targets
+@HpBar {
+  Group {
+    LayoutMode: Left;
+    Anchor: (Height: 14, Top: 2);
+    Group #hpBarBg {
+      Background: #333333;
+      Anchor: (Width: 120, Height: 10);
+      Group #hpBarFill {
+        Background: #44aa44;
+        Anchor: (Width: 118, Height: 8, Left: 1, Top: 1);
+      }
+    }
+    Label #hpText {
+      Anchor: (Width: 60, Height: 14, Left: 5);
+      Text: "50/50";
+      Style: (FontSize: 9, TextColor: #aaaaaa);
+    }
+  }
+}
+
+// ============================================================================
+// GM SPECIFIC COMPONENTS
+// ============================================================================
+
+// GM status indicator
+@GmStatus {
+  @Active = false;
+  Label {
+    Anchor: (Width: 150);
+    Text: "GM Mode: INACTIVE";
+    Style: (FontSize: 12, RenderBold: true, TextColor: #f44336);
+  }
+}
+
+// GM stats summary
+@GmStats {
+  @Text = "NPCs: 0 | Damage: 0 | Healing: 0";
+  Label {
+    Anchor: (Width: 250, Left: 20);
+    Text: @Text;
+    Style: (FontSize: 10, TextColor: #888888);
+  }
+}
+
+// Possession status
+@PossessionStatus {
+  @Text = "Not possessing";
+  Label {
+    Anchor: (Width: 150, Left: 20);
+    Text: @Text;
+    Style: (FontSize: 10, TextColor: #888888);
+  }
+}
+
+// Empty state message (no NPCs, no initiative, etc.)
+@EmptyStateMessage {
+  @Text = "No items yet.";
+  Label {
+    Anchor: (Height: 40);
+    Text: @Text;
+    Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center);
+  }
+}

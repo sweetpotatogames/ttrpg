@@ -50,6 +50,7 @@ src/main/java/com/example/dnd/
 src/main/resources/
 ├── manifest.json            # Plugin metadata (Main class, version)
 ├── Common/UI/Custom/        # Hytale UI markup files (.ui)
+│   ├── Dnd/                # Shared theme components (Dnd.ui)
 │   ├── Hud/Dnd/            # HUD overlays (CombatHud.ui)
 │   └── Pages/Dnd/          # Modal pages (CharacterSheet.ui, CombatControl.ui, GMControl.ui)
 └── Server/                  # Server-only assets
@@ -212,6 +213,88 @@ Valid values:
 - Comments use `//`
 - Variables defined with `@Name = value;`
 - Spread operator `...@Style` to extend styles
+
+## TTRPG Shared UI Components (Dnd.ui)
+
+The plugin uses a shared component library at `Common/UI/Custom/Dnd/Dnd.ui` for consistent theming across all panels and HUDs.
+
+### Importing Dnd.ui
+```
+// From Pages/Dnd/*.ui:
+$D = "../../Dnd/Dnd.ui";
+
+// From Hud/Dnd/*.ui:
+$D = "../../Dnd/Dnd.ui";
+```
+
+### Color Palette (Dark Fantasy Theme)
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary Background | `#1a1a2e` | Dark panels |
+| Secondary Background | `#2a2a4e` | Content areas |
+| Section Headers | `#ccb588` | Gold/tan headings |
+| Primary Text | `#cccccc` | Light gray body |
+| Secondary Text | `#888888` | Medium gray muted |
+| Help Text | `#666666` | Dark gray hints |
+| Ability Labels | `#96a9be` | Blue-gray for STR/DEX/etc |
+| Success | `#4caf50` | Green (HP, modifiers) |
+| Error | `#f44336` | Red (damage, inactive) |
+| Warning | `#ffeb3b` | Yellow |
+
+### Typography Components
+```
+$D.@PageTitle { @Text = "Title"; }        // 18px bold gold
+$D.@SectionHeader { @Text = "SECTION"; }  // 12px bold gold, bottom margin
+$D.@SectionHeaderCompact { @Text = "X"; } // 12px bold gold, compact spacing
+$D.@BodyText { @Text = "text"; }          // 11px light gray
+$D.@SecondaryText { @Text = "text"; }     // 10px medium gray
+$D.@HelpText { @Text = "- hint"; }        // 9px dark gray (14px height)
+$D.@HelpTextSmall { @Text = "hint"; }     // 8px dark gray (12px height)
+$D.@TipsHeader { }                        // "Tips:" label for help sections
+```
+
+### Button Components
+```
+$D.@DndButton #btn { @Text = "Action"; }           // Primary (220x40 default)
+$D.@DndSecondaryButton #btn { @Text = "Action"; }  // Secondary (150x35 default)
+$D.@DndSmallButton #btn { @Text = "Roll"; }        // Compact (45px wide)
+$D.@DiceButton #btn { @Die = "D20"; }              // Dice roller buttons
+```
+
+### Stat Display Components
+```
+$D.@AbilityLabel { @Text = "STR"; }    // Blue-gray ability abbreviation
+$D.@HpDisplay { }                       // Current/Max HP with #CurrentHp, #MaxHp labels
+$D.@HpControls { }                      // -5/-1/+1/+5 button row with IDs
+$D.@TurnIndicator { }                   // Current turn panel with #currentTurnLabel, #turnPromptLabel
+$D.@HpBar { }                           // HP bar with #hpBarBg, #hpBarFill, #hpText
+```
+
+### Panel Components
+```
+$D.@DndPanel { @Opacity = 0.85; }       // Dark panel (#1a1a2e)
+$D.@DndContentPanel { @Opacity = 0.8; } // Content panel (#2a2a4e)
+$D.@EmptyStateMessage { @Text = "No items yet."; }  // Centered muted message
+$D.@CombatStatus { @Text = "No Combat"; }           // Status label
+```
+
+### Example Usage
+```
+$C = "../../Common.ui";
+$D = "../../Dnd/Dnd.ui";
+
+$C.@PageOverlay {
+  $C.@Container {
+    $D.@SectionHeader { @Text = "ABILITIES"; }
+    $D.@HpDisplay #HpDisplay { }
+    $D.@HpControls #HpControls { }
+    $D.@DndSecondaryButton #myButton {
+      @Text = "Roll Initiative";
+      @Width = 150;
+    }
+  }
+}
+```
 
 ## Testing
 
