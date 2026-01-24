@@ -13,6 +13,11 @@ A Dungeons & Dragons 5th Edition-inspired tabletop RPG system for Hytale, featur
   - [Turn Management](#turn-management)
   - [Movement](#movement)
   - [Target Selection](#target-selection)
+- [Game Master Tools](#game-master-tools)
+  - [GM Mode](#gm-mode)
+  - [NPC Management](#npc-management)
+  - [NPC Possession](#npc-possession)
+  - [GM Control Panel](#gm-control-panel)
 - [Command Reference](#command-reference)
 
 ---
@@ -307,6 +312,136 @@ When you have a target selected:
 
 ---
 
+## Game Master Tools
+
+The GM tools allow a designated Game Master to spawn, manage, and control NPCs during gameplay. These features are essential for running encounters and managing combat from the DM's perspective.
+
+### GM Mode
+
+Toggle GM mode to access NPC management features. GM mode tracks your session statistics including NPCs spawned, damage dealt, and healing done.
+
+| Command | Description |
+|---------|-------------|
+| `/gm toggle` | Toggle GM mode on/off |
+
+When GM mode is active, you gain access to all NPC management commands and the GM Control Panel.
+
+---
+
+### NPC Management
+
+Spawn and manage NPCs with D&D-style stats (HP, AC). Managed NPCs can be added to initiative order and targeted by players.
+
+#### Spawning NPCs
+
+```
+/gm spawn <name> [hp] [ac]
+```
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `name` | Required | Display name for the NPC |
+| `hp` | 10 | Hit points (also sets max HP) |
+| `ac` | 10 | Armor class |
+
+**Examples:**
+```
+/gm spawn Goblin              # Spawn with defaults (10 HP, 10 AC)
+/gm spawn "Orc Warrior" 30 14 # Spawn with 30 HP and 14 AC
+/gm spawn Dragon 200 18       # Spawn a tough enemy
+```
+
+#### Selecting NPCs
+
+Select an NPC to perform actions on it (damage, heal, possess, add to initiative).
+
+```
+/gm select <name|uuid>
+```
+
+**Examples:**
+```
+/gm select Goblin             # Select by name
+/gm select "Orc Warrior"      # Select by name with spaces
+```
+
+#### Damaging and Healing NPCs
+
+Apply damage or healing to the selected NPC (or specify a target).
+
+| Command | Description |
+|---------|-------------|
+| `/gm damage <amount> [target]` | Deal damage to an NPC |
+| `/gm heal <amount> [target]` | Heal an NPC |
+
+**Examples:**
+```
+/gm damage 8                  # Deal 8 damage to selected NPC
+/gm damage 15 Goblin          # Deal 15 damage to Goblin
+/gm heal 5                    # Heal selected NPC for 5 HP
+/gm heal 10 "Orc Warrior"     # Heal Orc Warrior for 10 HP
+```
+
+#### Adding NPCs to Initiative
+
+Add or remove managed NPCs from the initiative order to include them in combat.
+
+| Command | Description |
+|---------|-------------|
+| `/gm initiative add [roll]` | Add selected NPC to initiative |
+| `/gm initiative remove` | Remove selected NPC from initiative |
+
+**Examples:**
+```
+/gm initiative add            # Roll d20 for initiative automatically
+/gm initiative add 15         # Set initiative to 15 (for pre-rolled values)
+/gm initiative remove         # Remove from turn order
+```
+
+---
+
+### NPC Possession
+
+Take control of an NPC to move and act as that character. While possessing, your player character is mounted to the NPC and you control the NPC's movement.
+
+| Command | Description |
+|---------|-------------|
+| `/gm possess` | Possess the currently selected NPC |
+| `/gm unpossess` | Stop possessing and return to your character |
+
+**Possession Workflow:**
+1. Select an NPC with `/gm select <name>`
+2. Possess it with `/gm possess`
+3. Move and act as the NPC
+4. When done, use `/gm unpossess` to return control
+
+**Note:** You can only possess one NPC at a time. Possessing a new NPC will automatically unpossess the current one.
+
+---
+
+### GM Control Panel
+
+Open a comprehensive UI panel for managing NPCs and combat without typing commands.
+
+```
+/gm panel
+```
+
+The GM Control Panel displays:
+- **GM Status:** Whether GM mode is active and session statistics
+- **Managed NPCs:** List of all spawned NPCs with HP, AC, and quick action buttons
+- **Initiative Order:** Current turn order with highlighting
+- **Quick Actions:** Buttons for common operations
+
+**Panel Features:**
+- **Select:** Click to select an NPC for other actions
+- **+/-:** Quick damage/heal buttons for each NPC
+- **Toggle GM Mode:** Enable/disable GM features
+- **Possess/Unpossess:** Take control of selected NPC
+- **Add/Remove Init:** Manage initiative order
+
+---
+
 ## Command Reference
 
 ### All Commands at a Glance
@@ -343,28 +478,47 @@ When you have a target selected:
 | `/dnd target` | Show current target |
 | `/dnd target clear` | Clear current target |
 | `/dnd target info` | Show detailed target info |
+| **GM Tools** | |
+| `/gm toggle` | Toggle GM mode on/off |
+| `/gm spawn <name> [hp] [ac]` | Spawn a managed NPC |
+| `/gm select <name>` | Select an NPC |
+| `/gm damage <amount> [target]` | Deal damage to NPC |
+| `/gm heal <amount> [target]` | Heal an NPC |
+| `/gm initiative add [roll]` | Add NPC to initiative |
+| `/gm initiative remove` | Remove NPC from initiative |
+| `/gm possess` | Possess selected NPC |
+| `/gm unpossess` | Stop possessing NPC |
+| `/gm panel` | Open GM control panel |
 
 ---
 
 ## Tips for Dungeon Masters
 
-1. **Before Combat:**
-   - Have all players set up their character sheets
-   - Spawn enemy NPCs in the world
-   - Have everyone roll initiative
+1. **Setup:**
+   - Enable GM mode with `/gm toggle`
+   - Have all players set up their character sheets with `/dnd sheet`
+   - Open the GM Control Panel with `/gm panel` for quick access to tools
 
-2. **Starting Combat:**
+2. **Before Combat:**
+   - Spawn enemy NPCs with `/gm spawn <name> [hp] [ac]`
+   - Have players roll initiative with `/dnd initiative roll`
+   - Add NPCs to initiative with `/gm select <name>` then `/gm initiative add`
+
+3. **Starting Combat:**
    - Use `/dnd turn start` to begin
    - Combat HUD will appear for all combatants
+   - The GM Panel shows the full initiative order
 
-3. **During Combat:**
+4. **During Combat:**
    - Players move and act on their turns
-   - Use `/dnd turn next` when a player's turn is complete
-   - Players can target NPCs to see their HP
+   - Use the GM Panel's +/- buttons for quick damage/healing
+   - Possess NPCs with `/gm possess` to control their movement on their turn
+   - Use `/dnd turn next` when a combatant's turn is complete
 
-4. **Ending Combat:**
+5. **Ending Combat:**
    - Use `/dnd turn end` when the encounter is resolved
    - All targets and HUDs are automatically cleared
+   - NPC stats persist for future encounters
 
 ---
 
@@ -385,6 +539,15 @@ A: Make sure you're in combat and it's your turn. Target selection works during 
 ---
 
 ## Version History
+
+- **1.1.0** - GM Tools Update
+  - GM mode with session tracking
+  - NPC spawning with customizable HP and AC
+  - NPC selection and management commands
+  - Quick damage/heal commands for NPCs
+  - NPC initiative integration (add/remove from combat)
+  - NPC possession system for GM control
+  - GM Control Panel UI with quick actions
 
 - **1.0.0** - Initial release
   - Top-down and isometric camera views
