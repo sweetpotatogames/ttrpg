@@ -1,0 +1,238 @@
+<!-- GM Control Panel - TTRPG Plugin for XamlToy -->
+<!-- View at: https://xamltoy.noesisengine.com -->
+<Grid
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="#0D0D1A">
+
+    <Grid.Resources>
+        <!-- Color Palette -->
+        <SolidColorBrush x:Key="PrimaryBg" Color="#1a1a2e"/>
+        <SolidColorBrush x:Key="SecondaryBg" Color="#2a2a4e"/>
+        <SolidColorBrush x:Key="GoldAccent" Color="#ccb588"/>
+        <SolidColorBrush x:Key="PrimaryText" Color="#cccccc"/>
+        <SolidColorBrush x:Key="SecondaryText" Color="#888888"/>
+        <SolidColorBrush x:Key="HelpText" Color="#666666"/>
+        <SolidColorBrush x:Key="Success" Color="#4caf50"/>
+        <SolidColorBrush x:Key="Error" Color="#f44336"/>
+
+        <!-- Typography -->
+        <Style x:Key="PageTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource GoldAccent}"/>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource GoldAccent}"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="HelpTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="Foreground" Value="{StaticResource HelpText}"/>
+            <Setter Property="Height" Value="12"/>
+        </Style>
+
+        <Style x:Key="InitiativeEntry" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryText}"/>
+            <Setter Property="Height" Value="18"/>
+        </Style>
+
+        <!-- Buttons -->
+        <Style x:Key="DndSecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#2a2a4e"/>
+            <Setter Property="Foreground" Value="#aaaaaa"/>
+            <Setter Property="BorderBrush" Value="#4a4a6e"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NpcActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#2a2a4e"/>
+            <Setter Property="Foreground" Value="#aaaaaa"/>
+            <Setter Property="BorderBrush" Value="#4a4a6e"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- NPC Slot Container -->
+        <Style x:Key="NpcSlot" TargetType="Border">
+            <Setter Property="Background" Value="#801a1a2e"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+            <Setter Property="Padding" Value="5,0"/>
+        </Style>
+    </Grid.Resources>
+
+    <!-- Main Container -->
+    <Border x:Name="GMControlRoot" Background="#F21a1a2e" Width="700" Height="550" Padding="15"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- HEADER -->
+            <StackPanel x:Name="Header" Grid.Row="0" Margin="0,0,0,10">
+                <TextBlock Text="GM Control Panel" Style="{StaticResource PageTitle}"/>
+
+                <!-- Status Row -->
+                <StackPanel x:Name="StatusRow" Orientation="Horizontal" Height="20" Margin="0,5,0,0">
+                    <TextBlock x:Name="gmStatusLabel" Text="GM Mode: ACTIVE" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Success}" Width="150"/>
+                    <TextBlock x:Name="statsLabel" Text="NPCs: 4 | Damage: 23 | Healing: 10" FontSize="10" Foreground="{StaticResource SecondaryText}" Width="250" Margin="20,0,0,0"/>
+                    <TextBlock x:Name="possessionLabel" Text="Possessing: Goblin #2" FontSize="10" Foreground="{StaticResource SecondaryText}" Width="150" Margin="20,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- MAIN CONTENT -->
+            <Grid x:Name="Content" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- NPC COLUMN -->
+                <StackPanel x:Name="NpcColumn" Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="MANAGED NPCs" Style="{StaticResource SectionHeader}"/>
+
+                    <!-- NPC List Container -->
+                    <Border x:Name="NpcListContainer" Background="#992a2a4e" Height="320" Padding="8">
+                        <StackPanel>
+                            <!-- NPC Slot 0 -->
+                            <Border x:Name="npcSlot0" Style="{StaticResource NpcSlot}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock x:Name="npcSlot0Name" Text="Goblin Warrior" FontSize="11" Foreground="{StaticResource PrimaryText}" Width="100"/>
+                                    <TextBlock x:Name="npcSlot0Hp" Text="8/12" FontSize="10" Foreground="{StaticResource Success}" Width="50" Margin="5,0,0,0"/>
+                                    <TextBlock x:Name="npcSlot0Ac" Text="AC:13" FontSize="9" Foreground="{StaticResource SecondaryText}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot0SelectBtn" Content="Sel" Style="{StaticResource NpcActionButton}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot0DamageBtn" Content="-" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                    <Button x:Name="npcSlot0HealBtn" Content="+" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- NPC Slot 1 -->
+                            <Border x:Name="npcSlot1" Style="{StaticResource NpcSlot}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock x:Name="npcSlot1Name" Text="Goblin Archer" FontSize="11" Foreground="{StaticResource PrimaryText}" Width="100"/>
+                                    <TextBlock x:Name="npcSlot1Hp" Text="5/10" FontSize="10" Foreground="{StaticResource Success}" Width="50" Margin="5,0,0,0"/>
+                                    <TextBlock x:Name="npcSlot1Ac" Text="AC:12" FontSize="9" Foreground="{StaticResource SecondaryText}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot1SelectBtn" Content="Sel" Style="{StaticResource NpcActionButton}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot1DamageBtn" Content="-" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                    <Button x:Name="npcSlot1HealBtn" Content="+" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- NPC Slot 2 (selected indicator via different color) -->
+                            <Border x:Name="npcSlot2" Background="#804a4a6e" Height="35" Margin="0,0,0,4" Padding="5,0">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock x:Name="npcSlot2Name" Text="Orc Shaman" FontSize="11" Foreground="White" Width="100"/>
+                                    <TextBlock x:Name="npcSlot2Hp" Text="18/22" FontSize="10" Foreground="{StaticResource Success}" Width="50" Margin="5,0,0,0"/>
+                                    <TextBlock x:Name="npcSlot2Ac" Text="AC:14" FontSize="9" Foreground="{StaticResource SecondaryText}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot2SelectBtn" Content="Sel" Style="{StaticResource NpcActionButton}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot2DamageBtn" Content="-" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                    <Button x:Name="npcSlot2HealBtn" Content="+" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- NPC Slot 3 -->
+                            <Border x:Name="npcSlot3" Style="{StaticResource NpcSlot}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock x:Name="npcSlot3Name" Text="Wolf" FontSize="11" Foreground="{StaticResource PrimaryText}" Width="100"/>
+                                    <TextBlock x:Name="npcSlot3Hp" Text="0/11" FontSize="10" Foreground="{StaticResource Error}" Width="50" Margin="5,0,0,0"/>
+                                    <TextBlock x:Name="npcSlot3Ac" Text="AC:11" FontSize="9" Foreground="{StaticResource SecondaryText}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot3SelectBtn" Content="Sel" Style="{StaticResource NpcActionButton}" Width="35" Margin="5,0,0,0"/>
+                                    <Button x:Name="npcSlot3DamageBtn" Content="-" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                    <Button x:Name="npcSlot3HealBtn" Content="+" Style="{StaticResource NpcActionButton}" Width="25" Margin="3,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Empty slots (hidden) -->
+                            <Border x:Name="npcSlot4" Style="{StaticResource NpcSlot}" Visibility="Collapsed"/>
+                            <Border x:Name="npcSlot5" Style="{StaticResource NpcSlot}" Visibility="Collapsed"/>
+                            <Border x:Name="npcSlot6" Style="{StaticResource NpcSlot}" Visibility="Collapsed"/>
+                            <Border x:Name="npcSlot7" Style="{StaticResource NpcSlot}" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- RIGHT COLUMN -->
+                <StackPanel x:Name="RightColumn" Grid.Column="1" Margin="10,0,0,0">
+                    <TextBlock Text="INITIATIVE ORDER" Style="{StaticResource SectionHeader}"/>
+
+                    <!-- Initiative Container -->
+                    <Border x:Name="InitiativeContainer" Background="#992a2a4e" Height="180" Padding="8" Margin="0,0,0,15">
+                        <StackPanel>
+                            <TextBlock x:Name="initSlot0" Text="1. Sir Galahad (20)" Style="{StaticResource InitiativeEntry}"/>
+                            <TextBlock x:Name="initSlot1" Text="2. Goblin Warrior (15)" Style="{StaticResource InitiativeEntry}"/>
+                            <TextBlock x:Name="initSlot2" Text="3. Orc Shaman (12)" Style="{StaticResource InitiativeEntry}"/>
+                            <TextBlock x:Name="initSlot3" Text="4. Goblin Archer (10)" Style="{StaticResource InitiativeEntry}"/>
+                            <TextBlock x:Name="initSlot4" Text="5. Wolf (8)" Style="{StaticResource InitiativeEntry}"/>
+                            <TextBlock x:Name="initSlot5" Visibility="Collapsed"/>
+                            <TextBlock x:Name="initSlot6" Visibility="Collapsed"/>
+                            <TextBlock x:Name="initSlot7" Visibility="Collapsed"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="ACTIONS" Style="{StaticResource SectionHeader}"/>
+
+                    <!-- Actions Container -->
+                    <StackPanel x:Name="ActionsContainer">
+                        <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,8">
+                            <Button x:Name="toggleGmBtn" Content="Toggle GM Mode" Style="{StaticResource DndSecondaryButton}" Width="130"/>
+                            <Button x:Name="refreshBtn" Content="Refresh" Style="{StaticResource DndSecondaryButton}" Width="90" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,8">
+                            <Button x:Name="possessSelectedBtn" Content="Possess Selected" Style="{StaticResource DndSecondaryButton}" Width="130"/>
+                            <Button x:Name="unpossessBtn" Content="Unpossess" Style="{StaticResource DndSecondaryButton}" Width="90" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,8">
+                            <Button x:Name="addInitBtn" Content="Add to Init" Style="{StaticResource DndSecondaryButton}" Width="105"/>
+                            <Button x:Name="removeInitBtn" Content="Remove Init" Style="{StaticResource DndSecondaryButton}" Width="105" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Help Section -->
+                    <StackPanel x:Name="HelpSection" Margin="0,10,0,0">
+                        <TextBlock Text="Tips:" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryText}" Margin="0,0,0,5"/>
+                        <TextBlock Text="- Click 'Sel' to select an NPC" Style="{StaticResource HelpTextStyle}"/>
+                        <TextBlock Text="- Use +/- for quick damage/heal" Style="{StaticResource HelpTextStyle}"/>
+                        <TextBlock Text="- Possess lets you control NPCs" Style="{StaticResource HelpTextStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Grid>

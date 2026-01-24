@@ -1,0 +1,5 @@
+# Local gist ID cache (contains your personal gist IDs)
+.gist-ids
+
+# Temp file created during sync
+Main.xaml

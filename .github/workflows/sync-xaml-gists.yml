@@ -1,0 +1,84 @@
+name: Sync XAML to Gists
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'xaml/*.xaml'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  sync-gists:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync XAML files to Gists
+        env:
+          GH_TOKEN: ${{ secrets.GIST_PAT }}
+        run: |
+          # Gist mapping: filename -> gist_id
+          # After first run, update these with actual gist IDs
+          declare -A GIST_MAP=(
+            ["DndThemeDemo.xaml"]="${GIST_ID_THEME_DEMO:-}"
+            ["CharacterSheet.xaml"]="${GIST_ID_CHARACTER_SHEET:-}"
+            ["CombatControl.xaml"]="${GIST_ID_COMBAT_CONTROL:-}"
+            ["GMControl.xaml"]="${GIST_ID_GM_CONTROL:-}"
+            ["CombatHud.xaml"]="${GIST_ID_COMBAT_HUD:-}"
+            ["DndTheme.xaml"]="${GIST_ID_DND_THEME:-}"
+          )
+
+          # Gist descriptions
+          declare -A GIST_DESC=(
+            ["DndThemeDemo.xaml"]="TTRPG Theme Demo - Dark Fantasy D&D Theme for NoesisGUI/XamlToy"
+            ["CharacterSheet.xaml"]="TTRPG Character Sheet - D&D 5e Style for NoesisGUI/XamlToy"
+            ["CombatControl.xaml"]="TTRPG Combat Control Panel for NoesisGUI/XamlToy"
+            ["GMControl.xaml"]="TTRPG GM Control Panel for NoesisGUI/XamlToy"
+            ["CombatHud.xaml"]="TTRPG Combat HUD Overlay for NoesisGUI/XamlToy"
+            ["DndTheme.xaml"]="TTRPG Shared Theme ResourceDictionary for NoesisGUI/XamlToy"
+          )
+
+          cd xaml
+
+          for file in *.xaml; do
+            if [[ -f "$file" ]]; then
+              echo "Processing: $file"
+
+              gist_id="${GIST_MAP[$file]}"
+              description="${GIST_DESC[$file]:-TTRPG UI for XamlToy}"
+
+              if [[ -n "$gist_id" ]]; then
+                # Update existing gist
+                echo "Updating gist: $gist_id"
+                gh gist edit "$gist_id" "$file" --filename "Main.xaml"
+              else
+                # Create new gist
+                echo "Creating new gist for: $file"
+                # Rename to Main.xaml for XamlToy compatibility
+                cp "$file" Main.xaml
+                new_gist_url=$(gh gist create Main.xaml --public --desc "$description")
+                new_gist_id=$(echo "$new_gist_url" | grep -oP '[^/]+$')
+                echo "Created gist: $new_gist_id"
+                echo "XamlToy URL: https://www.noesisengine.com/xamltoy/$new_gist_id"
+                echo ""
+                echo "Add this to repository secrets:"
+                echo "  GIST_ID_$(echo "${file%.xaml}" | tr '[:lower:]' '[:upper:]' | tr '-' '_')=$new_gist_id"
+                rm Main.xaml
+              fi
+
+              echo "---"
+            fi
+          done
+
+      - name: Output Gist URLs
+        run: |
+          echo "## XamlToy Preview URLs"
+          echo ""
+          echo "After gists are created, view them at:"
+          echo "- Theme Demo: https://xamltoy.noesisengine.com/{gist-id}"
+          echo "- Character Sheet: https://xamltoy.noesisengine.com/{gist-id}"
+          echo "- Combat Control: https://xamltoy.noesisengine.com/{gist-id}"
+          echo "- GM Control: https://xamltoy.noesisengine.com/{gist-id}"
+          echo "- Combat HUD: https://xamltoy.noesisengine.com/{gist-id}"
