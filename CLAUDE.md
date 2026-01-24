@@ -167,6 +167,35 @@ Available button types from Common.ui:
 - `@SmallSecondaryTextButton` - Compact secondary button
 - `@CancelTextButton` - Destructive/cancel action
 
+### Event Bindings (Clickable Elements)
+**IMPORTANT:** Only `Button` elements support the `Activating` event for click handling. `Group` elements do NOT support events, even if styled to look like buttons.
+
+```java
+// In Java, binding a click handler:
+view.bind("#myButton", Activating.class, event -> {
+    // This works only if #myButton is a Button element
+});
+```
+
+**WRONG - This will cause runtime error:**
+```
+Group #myButton {
+    Background: #3a3a5e;
+    Label { Text: "Click Me"; }
+}
+```
+Error: "Target element in CustomUI event binding has no compatible Activating event"
+
+**CORRECT - Use Common.ui button components:**
+```
+$C.@SecondaryTextButton #myButton {
+    @Text = "Click Me";
+    Anchor: (Width: 100, Height: 35);
+}
+```
+
+For small buttons, use `@SmallSecondaryTextButton` which works at compact sizes.
+
 ### LayoutMode Property
 Valid values:
 - `Top`, `Bottom`, `Middle`, `Left`, `Right`, `Center`

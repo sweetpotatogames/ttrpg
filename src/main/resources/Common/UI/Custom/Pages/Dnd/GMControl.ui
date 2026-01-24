@@ -60,7 +60,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot0Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -70,36 +70,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot0Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot0SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot0SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot0DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot0DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot0HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot0HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot1 {
@@ -108,7 +93,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot1Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -118,36 +103,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot1Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot1SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot1SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot1DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot1DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot1HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot1HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot2 {
@@ -156,7 +126,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot2Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -166,36 +136,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot2Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot2SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot2SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot2DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot2DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot2HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot2HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot3 {
@@ -204,7 +159,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot3Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -214,36 +169,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot3Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot3SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot3SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot3DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot3DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot3HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot3HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot4 {
@@ -252,7 +192,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot4Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -262,36 +202,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot4Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot4SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot4SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot4DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot4DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot4HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot4HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot5 {
@@ -300,7 +225,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot5Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -310,36 +235,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot5Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot5SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot5SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot5DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot5DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot5HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot5HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot6 {
@@ -348,7 +258,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot6Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -358,36 +268,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot6Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot6SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot6SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot6DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot6DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot6HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot6HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
         Group #npcSlot7 {
@@ -396,7 +291,7 @@ Group #GMControlRoot {
           Background: #1a1a2e(0.5);
           Anchor: (Height: 35, Bottom: 4);
           Label #npcSlot7Name {
-            Anchor: (Width: 120);
+            Anchor: (Width: 100);
             Text: "NPC Name";
             Style: (FontSize: 11, TextColor: #cccccc);
           }
@@ -406,36 +301,21 @@ Group #GMControlRoot {
             Style: (FontSize: 10, TextColor: #4caf50);
           }
           Label #npcSlot7Ac {
-            Anchor: (Width: 40, Left: 5);
-            Text: "AC: 10";
+            Anchor: (Width: 35, Left: 5);
+            Text: "AC:10";
             Style: (FontSize: 9, TextColor: #888888);
           }
-          Group #npcSlot7SelectBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 30, Height: 22, Left: 5);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Sel";
-              Style: (FontSize: 8, TextColor: #cccccc, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot7SelectBtn {
+            @Text = "Sel";
+            Anchor: (Width: 35, Height: 25, Left: 5);
           }
-          Group #npcSlot7DamageBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "-";
-              Style: (FontSize: 10, TextColor: #ff6666, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot7DamageBtn {
+            @Text = "-";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
-          Group #npcSlot7HealBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 20, Height: 22, Left: 3);
-            Label {
-              Anchor: (Full: 0);
-              Text: "+";
-              Style: (FontSize: 10, TextColor: #66ff66, HorizontalAlignment: Center);
-            }
+          $C.@SmallSecondaryTextButton #npcSlot7HealBtn {
+            @Text = "+";
+            Anchor: (Width: 25, Height: 25, Left: 3);
           }
         }
       }
@@ -516,68 +396,38 @@ Group #GMControlRoot {
         LayoutMode: Top;
         Group {
           LayoutMode: Left;
-          Anchor: (Height: 35, Bottom: 8);
-          Group #toggleGmBtn {
-            Background: #3a5a3a;
-            Anchor: (Width: 120, Height: 30);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Toggle GM Mode";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          Anchor: (Height: 40, Bottom: 8);
+          $C.@SecondaryTextButton #toggleGmBtn {
+            @Text = "Toggle GM Mode";
+            Anchor: (Width: 130, Height: 35);
           }
-          Group #refreshBtn {
-            Background: #3a3a5e;
-            Anchor: (Width: 80, Height: 30, Left: 10);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Refresh";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          $C.@SecondaryTextButton #refreshBtn {
+            @Text = "Refresh";
+            Anchor: (Width: 90, Height: 35, Left: 10);
           }
         }
         Group {
           LayoutMode: Left;
-          Anchor: (Height: 35, Bottom: 8);
-          Group #possessSelectedBtn {
-            Background: #5a5a3a;
-            Anchor: (Width: 120, Height: 30);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Possess Selected";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          Anchor: (Height: 40, Bottom: 8);
+          $C.@SecondaryTextButton #possessSelectedBtn {
+            @Text = "Possess Selected";
+            Anchor: (Width: 130, Height: 35);
           }
-          Group #unpossessBtn {
-            Background: #5a3a3a;
-            Anchor: (Width: 80, Height: 30, Left: 10);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Unpossess";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          $C.@SecondaryTextButton #unpossessBtn {
+            @Text = "Unpossess";
+            Anchor: (Width: 90, Height: 35, Left: 10);
           }
         }
         Group {
           LayoutMode: Left;
-          Anchor: (Height: 35, Bottom: 8);
-          Group #addInitBtn {
-            Background: #3a5a5a;
-            Anchor: (Width: 100, Height: 30);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Add to Init";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          Anchor: (Height: 40, Bottom: 8);
+          $C.@SecondaryTextButton #addInitBtn {
+            @Text = "Add to Init";
+            Anchor: (Width: 105, Height: 35);
           }
-          Group #removeInitBtn {
-            Background: #5a3a5a;
-            Anchor: (Width: 100, Height: 30, Left: 10);
-            Label {
-              Anchor: (Full: 0);
-              Text: "Remove Init";
-              Style: (FontSize: 10, TextColor: #ffffff, HorizontalAlignment: Center);
-            }
+          $C.@SecondaryTextButton #removeInitBtn {
+            @Text = "Remove Init";
+            Anchor: (Width: 105, Height: 35, Left: 10);
           }
         }
       }

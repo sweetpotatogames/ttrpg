@@ -287,6 +287,32 @@ $C.@PageOverlay {
             Anchor: (Width: 55, Height: 40, Right: 5, Bottom: 5);
           }
         }
+        Group #CombatStatus {
+          LayoutMode: Top;
+          Anchor: (Top: 15);
+          Label #combatStatusLabel {
+            Anchor: (Height: 16);
+            Text: "No Combat";
+            Style: (FontSize: 11, TextColor: #888888);
+          }
+          Label #turnStatusLabel {
+            Anchor: (Height: 16);
+            Text: "";
+            Style: (FontSize: 11, TextColor: #888888);
+          }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 40, Top: 10);
+            $C.@SmallSecondaryTextButton #endTurnBtn {
+              @Text = "End Turn";
+              Anchor: (Width: 80, Height: 30, Right: 5);
+            }
+            $C.@SmallSecondaryTextButton #openCombatBtn {
+              @Text = "Combat";
+              Anchor: (Width: 80, Height: 30, Left: 5);
+            }
+          }
+        }
       }
     }
   }
