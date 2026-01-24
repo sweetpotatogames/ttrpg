@@ -104,7 +104,9 @@ int blockId = world.getBlock(x, y, z);  // Returns block ID, 0 = air
 
 ## UI Markup Syntax
 
-Hytale `.ui` files use a custom markup language:
+Hytale `.ui` files use a custom markup language. Reference: `Common.ui` in game assets.
+
+### Basic Structure
 ```
 // Variable references to shared styles
 $C = "../../Common.ui";
@@ -113,7 +115,7 @@ $C = "../../Common.ui";
 Group #elementId {
     Anchor: (Width: 200, Height: 50, Top: 10);
     LayoutMode: Top;
-    Background: (Color: #1a1a2e);
+    Background: #1a1a2e(0.9);
     Padding: (Full: 10);
 }
 
@@ -123,12 +125,64 @@ $C.@PrimaryTextButton #buttonId {
 }
 ```
 
-Key syntax rules:
+### Background Property
+```
+// Solid color (full opacity)
+Background: #1a1a2e;
+
+// Color with opacity (0.0-1.0)
+Background: #1a1a2e(0.9);
+
+// Texture with 9-patch border (Border = slice size in pixels)
+Background: (TexturePath: "Common/ContainerPatch.png", Border: 23);
+
+// Texture with separate horizontal/vertical borders
+Background: PatchStyle(TexturePath: "Common/Buttons/Primary.png", VerticalBorder: 12, HorizontalBorder: 80);
+```
+
+**Note:** There is no CSS-style `BorderColor` or `BorderSize` property. Visual borders come from the textures themselves (9-patch images). Use `Common.ui` components like `@Container` for bordered panels.
+
+### Label Style Property
+```
+Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true);
+
+// Text alignment (NOT TextAlign!)
+Style: (HorizontalAlignment: Center, VerticalAlignment: Center);
+```
+
+**Note:** Use `HorizontalAlignment` and `VerticalAlignment`, not `TextAlign`. Valid alignments: `Center`, `Start`, `End`.
+
+### Button Components
+TextButton components require an `@Text` parameter:
+```
+$C.@SecondaryTextButton #myButton {
+    @Text = "Click Me";
+    Anchor: (Width: 100, Height: 35);
+}
+```
+
+Available button types from Common.ui:
+- `@TextButton` - Main/primary action button
+- `@SecondaryTextButton` - Secondary action
+- `@SmallSecondaryTextButton` - Compact secondary button
+- `@CancelTextButton` - Destructive/cancel action
+
+### LayoutMode Property
+Valid values:
+- `Top`, `Bottom`, `Middle`, `Left`, `Right`, `Center`
+- `TopScrolling`, `BottomScrolling`
+- `MiddleCenter`, `CenterMiddle`
+- `LeftCenterWrap` - wraps children to next row
+- `Full`, `Inherit`
+
+### Key Syntax Rules
 - Properties use `PropertyName: value;` format
 - Compound values use `(Key: value, Key: value)` format
-- Color values use hex format `#rrggbb`
+- Color values use hex format `#rrggbb` or `#rrggbb(opacity)`
 - Element IDs use `#id` prefix
 - Comments use `//`
+- Variables defined with `@Name = value;`
+- Spread operator `...@Style` to extend styles
 
 ## Testing
 
